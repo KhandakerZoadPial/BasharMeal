@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Admin Control Panel
+{% endblock title %}
+
+
+{% block main_content %}
+<br>
+<div class="container">
+    <div class="card border-success">
+        <ul class="nav justify-content-center mt-2 mb-2">
+            <li class="nav-item">
+                <a class="btn btn btn-outline-danger" aria-current="page" href="{% url 'home' %}">হোম</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'meal' %}">মিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">বাসার বিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_member' %}">
+                    মেম্বার অ্যাড
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center text-danger"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+              </svg> মেম্বার লিস্ট</h3>
+            <hr>
+
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ছবি</th>
+                    <th scope="col">নাম</th>
+                    <th scope="col">এডভান্স</th>
+                    <th scope="col">পাওনা</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for member in member_set %}
+                    <tr>
+                        <th>
+                            <img src="{{member.picture.url}}" height="70px" width="70px" alt="">
+                        </th>
+                        <td>{{member.name}}</td>
+                        <td>{{member.advance}}</td>
+                        <td>{{member.current_meal_due}}</td>
+                      </tr>
+                    {% endfor %}
+                  
+                 
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

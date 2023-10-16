@@ -1,0 +1,433 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Admin Control Panel
+{% endblock title %}
+
+
+{% block main_content %}
+<br>
+<div class="container">
+    <div class="card border-success">
+        <ul class="nav justify-content-center mt-2 mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">হোম</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn btn-outline-danger" aria-current="page" href="{% url 'meal' %}">মিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">বাসার বিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_member' %}">মেম্বার অ্যাড</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+            >
+                নতুন মাস
+            </button>
+            <hr>
+            <div class="card border-dark" style="border-width:3px !important;">
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="text-center mb-3">
+                            <button
+                                type="button"
+                                class="btn btn-outline-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal2"
+                            >
+                                জমা
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="30"
+                                    height="30"
+                                    fill="currentColor"
+                                    class="bi bi-plus-circle-dotted"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                </svg>
+                            </button>
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 class="text-center mb-3" style="color: red;">
+                            বর্তমান মাস: {{current_meal.month_name}} - {{current_meal.year}}
+                        </h3>
+                    </div>
+                    <div class="col-md-3">
+                      <h3 class="text-center mb-3">
+                        <button
+                            type="button"
+                            class="btn btn-outline-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal3"
+                        >
+                        বাজার
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="30"
+                                height="30"
+                                fill="currentColor"
+                                class="bi bi-plus-circle-dotted"
+                                viewBox="0 0 16 16"
+                            >
+                                <path d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0zM6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458L4.46.824zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66zm1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8zM.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752zm-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                            </svg>
+                        </button>
+                    </h3>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <label>মিল আপডেট
+            </label>
+            <hr>
+            <form action="{% url 'update_meal' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>মেম্বার</label>
+                        <br>
+                        <select name="member" class="form-select" required>
+                            {% for item in members %}
+                            <option value="{{item.pk}}">{{item.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>মাস</label>
+                        <br>
+                        <select name="date" class="form-select" required>
+                            {% for item in all_dates %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>
+                            মিল সংখ্যা
+                        </label>
+                        <br>
+                        <input
+                            type="number"
+                            name="number_of_meal"
+                            class="form-control"
+                            required
+                        >
+                    </div>
+                    <div class="col">
+                        <label></label>
+                        <br>
+                        <button type="submit" class="btn btn-outline-warning">আপডেট</button>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="danger">
+            <br>
+            <label>সকল মিল
+            </label>
+            <hr>
+            <table class="table table-striped-columns table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">মেম্বার</th>
+                        {% for item in all_dates %}
+                        <th scope="col">{{item|date:"d"}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in meal_list %}
+                    <tr>
+                        <th scope="row">{{item.name}}</th>
+                        {% for i in item.meals %}
+                        <td>
+                            {{i.number_of_meals}}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <div class="card border-dark" style="border-width:2px !important;">
+                <br>
+                <h3 class="text-center mb-3" style="color: red;">জমা</h3>
+            </div>
+            <br>
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">মেম্বার নাম</th>
+                        <th scope="col">এমাউন্ট</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for joma in all_joma %}
+                    <tr>
+                        <td>{{joma.name}}</td>
+                        <td class="table-active">{{joma.amount}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <br>
+            <br>
+            <div class="card border-dark" style="border-width:2px !important;">
+                <br>
+                <h3 class="text-center mb-3" style="color: red;">বাজার</h3>
+            </div>
+            <br>
+            <table class="table table-striped  table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">বাজার করেছেন
+                        </th>
+                        <th scope="col">বাজারের ডিটেইল
+
+                        </th>
+                        <th scope="col">টাকার পরিমাণ
+
+                        </th>
+                        <th scope="col">বাজার তারিখ
+
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bazar in all_bazar %}
+                    <tr>
+                        <td>{{bazar.bazar_by.name}}</td>
+                        <td>{{bazar.bazar_details}}</td>
+                        <td>{{bazar.bazar_amount}}</td>
+                        <td>{{bazar.bazar_date}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<br><br><br><br><br>
+
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">নতুন মাস</h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'create_month' %}" method="POST">
+                    {% csrf_token %}
+                    <label>
+                        মাসের নাম
+                    </label>
+                    <input
+                        type="text"
+                        name="month_name"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>
+                        সাল
+                    </label>
+                    <input
+                        type="text"
+                        name="year"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>
+                        শুরু তারিখ
+                    </label>
+                    <input
+                        type="date"
+                        name="from_date"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>
+                        শেষ তারিখ
+                    </label>
+                    <input
+                        type="date"
+                        name="to_date"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>
+                        মেম্বার
+                    </label>
+                    <select
+                        class="form-select"
+                        multiple
+                        aria-label="Multiple select example"
+                        name="members"
+                    >
+                        {% for item in member_set %}
+                        <option value="{{item.pk}}">{{item.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-outline-danger">
+                        নতুন মাস শুরু করুন
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    বন্ধ করুন
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div
+    class="modal fade"
+    id="exampleModal2"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">জমা</h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'add_joma' %}" method="post">
+                    {% csrf_token %}
+                    <label>মেম্বার</label>
+                    <select name="member_pk" class="form-select">
+                        {% for item in members %}
+                        <option value="{{item.pk}}">{{item.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label>এমাউন্ট</label>
+                    <input
+                        type="number"
+                        name="joma_amount"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>মাস</label>
+                    <select name="joma_month_pk" class="form-select">
+                        {% for item in all_meal %}
+                        <option value="{{item.pk}}">{{item.month_name}} {{item.year}}</option>
+                        {% endfor %}
+                    </select>
+                    <hr>
+                    <button type="submit" class="btn btn-outline-danger">Add</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">বাজার</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'add_bazar' %}" method="post">
+            {% csrf_token %}
+
+            <label>বাজারের ডিটেইল
+            </label>
+
+            <textarea name="bazar_details" id="" cols="30" rows="3" class="form-control" required></textarea>
+            <br>
+
+            <label>এমাউন্ট</label>
+                    <input
+                        type="number"
+                        name="bazar_amount"
+                        class="form-control"
+                        required
+                    >
+                    <br>
+                    <label>মাস</label>
+                    <select name="bazar_month_pk" class="form-select">
+                        {% for item in all_meal %}
+                        <option value="{{item.pk}}">{{item.month_name}} {{item.year}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label>বাজার করেছেন
+                    </label>
+                    <select name="bazar_member_pk" class="form-select">
+                        {% for item in members %}
+                        <option value="{{item.pk}}">{{item.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-outline-danger">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}

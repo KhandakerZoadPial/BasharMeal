@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Admin Control Panel
+{% endblock title %}
+
+
+{% block main_content %}
+<br>
+<div class="container">
+    <div class="card border-success">
+        <ul class="nav justify-content-center mt-2 mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">হোম</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'meal' %}">মিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">বাসার বিল</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn btn-outline-danger" aria-current="page" href="{% url 'add_member' %}">মেম্বার অ্যাড</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center text-danger"> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cloud-plus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
+                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+              </svg> মেম্বার যোগ করুন</h2>
+            <hr>
+            <form action="{% url 'add_member' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>নাম</label>
+                <input type="text" name="name" class="form-control" required> 
+                <br>
+                <label>ছবি</label>
+                <input type="file" name="image" class="form-control" required> 
+                <br>
+                <label>এডভান্স</label>
+                <input type="number" name="advance" class="form-control" required>
+                <br>
+                <label>মাস</label>
+                <input type="date" name="join_date" class="form-control" required>
+                <br>
+                <button type="submit" class="btn btn-outline-success">
+                    যোগ করুন <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+                      </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
